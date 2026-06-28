@@ -200,7 +200,7 @@
     </div>
   </section>
 
-  <dialog class="art-modal" id="waiting-tide-dialog" aria-labelledby="waiting-tide-title">
+  <dialog class="art-modal" id="waiting-tide-dialog" aria-labelledby="waiting-tide-title" data-close-on-backdrop>
     <div class="art-modal-shell">
       <button class="modal-close" type="button" data-modal-close aria-label="Close artwork details">×</button>
       <div class="modal-art">
@@ -249,7 +249,7 @@
     </div>
   </dialog>
 
-  <dialog class="art-modal" id="quite-water-dialog" aria-labelledby="quite-water-title">
+  <dialog class="art-modal" id="quite-water-dialog" aria-labelledby="quite-water-title" data-close-on-backdrop>
     <div class="art-modal-shell">
       <button class="modal-close" type="button" data-modal-close aria-label="Close artwork details">×</button>
       <div class="modal-art">
@@ -277,7 +277,7 @@
     </div>
   </dialog>
 
-  <dialog class="art-modal" id="anchored-dialog" aria-labelledby="anchored-title">
+  <dialog class="art-modal" id="anchored-dialog" aria-labelledby="anchored-title" data-close-on-backdrop>
     <div class="art-modal-shell">
       <button class="modal-close" type="button" data-modal-close aria-label="Close artwork details">×</button>
       <div class="modal-art">
@@ -305,7 +305,7 @@
     </div>
   </dialog>
 
-  <dialog class="art-modal" id="last-snow-dialog" aria-labelledby="last-snow-title">
+  <dialog class="art-modal" id="last-snow-dialog" aria-labelledby="last-snow-title" data-close-on-backdrop>
     <div class="art-modal-shell">
       <button class="modal-close" type="button" data-modal-close aria-label="Close artwork details">×</button>
       <div class="modal-art">
@@ -333,7 +333,7 @@
     </div>
   </dialog>
 
-  <dialog class="art-modal" id="between-branches-dialog" aria-labelledby="between-branches-title">
+  <dialog class="art-modal" id="between-branches-dialog" aria-labelledby="between-branches-title" data-close-on-backdrop>
     <div class="art-modal-shell">
       <button class="modal-close" type="button" data-modal-close aria-label="Close artwork details">×</button>
       <div class="modal-art">
@@ -361,7 +361,7 @@
     </div>
   </dialog>
 
-  <dialog class="art-modal" id="calm-depature-dialog" aria-labelledby="calm-depature-title">
+  <dialog class="art-modal" id="calm-depature-dialog" aria-labelledby="calm-depature-title" data-close-on-backdrop>
     <div class="art-modal-shell">
       <button class="modal-close" type="button" data-modal-close aria-label="Close artwork details">×</button>
       <div class="modal-art">
@@ -389,7 +389,7 @@
     </div>
   </dialog>
 
-  <dialog class="art-modal" id="silent-stones-dialog" aria-labelledby="silent-stones-title">
+  <dialog class="art-modal" id="silent-stones-dialog" aria-labelledby="silent-stones-title" data-close-on-backdrop>
     <div class="art-modal-shell">
       <button class="modal-close" type="button" data-modal-close aria-label="Close artwork details">×</button>
       <div class="modal-art">
@@ -441,6 +441,14 @@
   document.querySelectorAll('[data-modal-close]').forEach((trigger) => {
     trigger.addEventListener('click', () => {
       trigger.closest('dialog')?.close();
+    });
+  });
+
+  document.querySelectorAll('[data-close-on-backdrop]').forEach((dialog) => {
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) {
+        dialog.close();
+      }
     });
   });
 
