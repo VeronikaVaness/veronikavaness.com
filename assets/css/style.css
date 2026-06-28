@@ -247,6 +247,7 @@ figcaption .t{font-family:var(--serif);font-style:italic;font-size:18px;color:va
 }
 .zoom-stage.is-zoomed{cursor:grab;}
 .zoom-stage.is-dragging{cursor:grabbing;}
+.zoom-stage.is-dragging .zoom-image,.zoom-stage.is-pinching .zoom-image{transition:none;}
 .zoom-image{
   max-width:100%;max-height:calc(100vh - 118px);object-fit:contain;border-radius:3px;
   box-shadow:0 18px 60px rgba(0,0,0,.32);transform-origin:center center;
