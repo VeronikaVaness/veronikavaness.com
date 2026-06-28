@@ -73,7 +73,7 @@
   <section class="section-tight">
     <div class="container">
       <p class="eyebrow center">Selected works</p>
-      <div class="trio">
+      <div class="trio" id="selected-works" data-selected-works>
         <a href="gallery.html" aria-label="Waiting for the Tide — view in gallery">
           <figure><img src="assets/img/art-02.jpg" width="1600" height="1200" alt="Watercolour of a heritage cannery building on wooden pilings beside a marsh" loading="lazy"><figcaption><span class="t">Waiting for the Tide</span></figcaption></figure>
         </a>
@@ -154,6 +154,146 @@
     </div>
   </div>
 </footer>
+
+<script>
+  const selectedWorks = [
+    {
+      title: 'Waiting for the Tide',
+      src: 'assets/img/art-02.jpg',
+      width: 1600,
+      height: 1200,
+      alt: 'Watercolour of a heritage cannery building on wooden pilings beside a marsh'
+    },
+    {
+      title: 'Quite Water',
+      src: 'assets/img/art-03.jpg',
+      width: 1600,
+      height: 1107,
+      alt: 'Atmospheric watercolour of a rope swing hanging from misty trees over water'
+    },
+    {
+      title: 'Anchored',
+      src: 'assets/img/art-04.jpg',
+      width: 1600,
+      height: 1173,
+      alt: 'Moody watercolour of harbour gantry cranes silhouetted over calm water'
+    },
+    {
+      title: 'Last Snow',
+      src: 'assets/img/art-05.jpg',
+      width: 1600,
+      height: 747,
+      alt: 'Panoramic watercolour of snow-capped mountains, a glacier, and a warm rocky foreground'
+    },
+    {
+      title: 'Ridge Trail',
+      src: 'assets/img/art-09.jpg',
+      width: 1600,
+      height: 923,
+      alt: 'Watercolour mountain ridge trail view from High Note Trail on Whistler mountain'
+    },
+    {
+      title: 'Beaver Lake Reflections',
+      src: 'assets/img/art-10.jpg',
+      width: 1600,
+      height: 1026,
+      alt: 'Watercolour of Beaver Lake in Stanley Park with warm autumn reflections'
+    },
+    {
+      title: 'Between the Branches',
+      src: 'assets/img/art-06.jpg',
+      width: 1200,
+      height: 1600,
+      alt: 'Watercolour of a child on a rope swing beneath a large tree in warm earth tones'
+    },
+    {
+      title: 'Calm Before Depature',
+      src: 'assets/img/art-07.jpg',
+      width: 1068,
+      height: 1600,
+      alt: 'Atmospheric vertical watercolour of a small boat moored below misty harbour buildings and birds'
+    },
+    {
+      title: 'Silent Stones',
+      src: 'assets/img/art-08.jpg',
+      width: 1600,
+      height: 515,
+      alt: 'Panoramic watercolour of ancient stone pyramids and small figures in warm afternoon light'
+    }
+  ];
+
+  const selectedWorksGrid = document.querySelector('[data-selected-works]');
+
+  if (selectedWorksGrid) {
+    const selected = pickSelectedWorks(selectedWorks, 3);
+    selectedWorksGrid.replaceChildren(...selected.map(createSelectedWorkCard));
+  }
+
+  function pickSelectedWorks(items, count) {
+    const shuffled = shuffleWorks(items);
+    let selected = shuffled.slice(0, count);
+    const selectedKey = selected.map((item) => item.title).join('|');
+    const lastKey = getLastSelectedWorks();
+
+    if (selectedKey === lastKey && shuffled.length > count) {
+      selected = [...selected.slice(1), shuffled[count]];
+    }
+
+    setLastSelectedWorks(selected.map((item) => item.title).join('|'));
+    return selected;
+  }
+
+  function shuffleWorks(items) {
+    const shuffled = [...items];
+
+    for (let index = shuffled.length - 1; index > 0; index -= 1) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
+    }
+
+    return shuffled;
+  }
+
+  function getLastSelectedWorks() {
+    try {
+      return sessionStorage.getItem('selectedWorks');
+    } catch {
+      return '';
+    }
+  }
+
+  function setLastSelectedWorks(value) {
+    try {
+      sessionStorage.setItem('selectedWorks', value);
+    } catch {
+      // The random selection still works if session storage is unavailable.
+    }
+  }
+
+  function createSelectedWorkCard(work) {
+    const link = document.createElement('a');
+    link.href = 'gallery.html';
+    link.setAttribute('aria-label', `${work.title} - view in gallery`);
+
+    const figure = document.createElement('figure');
+    const image = document.createElement('img');
+    image.src = work.src;
+    image.width = work.width;
+    image.height = work.height;
+    image.alt = work.alt;
+    image.loading = 'lazy';
+
+    const caption = document.createElement('figcaption');
+    const title = document.createElement('span');
+    title.className = 't';
+    title.textContent = work.title;
+
+    caption.append(title);
+    figure.append(image, caption);
+    link.append(figure);
+    return link;
+  }
+</script>
 
 </body>
 </html>
