@@ -204,7 +204,9 @@
     <div class="art-modal-shell">
       <button class="modal-close" type="button" data-modal-close aria-label="Close artwork details">×</button>
       <div class="modal-art">
-        <img src="assets/img/art-02.jpg" width="1600" height="1200" alt="Watercolour of a heritage cannery building on wooden pilings beside a marsh, soft greens and greys">
+        <button class="modal-art-zoom-trigger" type="button" data-zoom-title="Waiting for the Tide" data-zoom-src="assets/img/art-02.jpg" data-zoom-alt="Watercolour of a heritage cannery building on wooden pilings beside a marsh, soft greens and greys" aria-label="Open Waiting for the Tide full screen">
+          <img src="assets/img/art-02.jpg" width="1600" height="1200" alt="Watercolour of a heritage cannery building on wooden pilings beside a marsh, soft greens and greys">
+        </button>
       </div>
       <div class="modal-copy">
         <p class="eyebrow">Original watercolour</p>
@@ -226,11 +228,34 @@
     </div>
   </dialog>
 
+  <dialog class="zoom-modal" id="artwork-zoom-dialog" aria-labelledby="artwork-zoom-title">
+    <div class="zoom-shell">
+      <div class="zoom-toolbar">
+        <div class="zoom-title">
+          <p class="eyebrow">Original watercolour</p>
+          <h2 id="artwork-zoom-title">Artwork detail</h2>
+        </div>
+        <div class="zoom-controls" aria-label="Image zoom controls">
+          <button class="zoom-btn" type="button" data-zoom-action="out" aria-label="Zoom out">-</button>
+          <input class="zoom-range" type="range" min="1" max="4" step="0.1" value="1" data-zoom-range aria-label="Zoom level">
+          <button class="zoom-btn" type="button" data-zoom-action="in" aria-label="Zoom in">+</button>
+          <button class="zoom-reset" type="button" data-zoom-action="reset">Reset</button>
+          <button class="zoom-close" type="button" data-zoom-close aria-label="Close full screen artwork">Close</button>
+        </div>
+      </div>
+      <div class="zoom-stage" data-zoom-stage>
+        <img class="zoom-image" src="assets/img/art-02.jpg" width="1600" height="1200" alt="" data-zoom-image>
+      </div>
+    </div>
+  </dialog>
+
   <dialog class="art-modal" id="quite-water-dialog" aria-labelledby="quite-water-title">
     <div class="art-modal-shell">
       <button class="modal-close" type="button" data-modal-close aria-label="Close artwork details">×</button>
       <div class="modal-art">
-        <img src="assets/img/art-03.jpg" width="1600" height="1107" alt="Atmospheric watercolour of a rope swing hanging from misty trees over water">
+        <button class="modal-art-zoom-trigger" type="button" data-zoom-title="Quite Water" data-zoom-src="assets/img/art-03.jpg" data-zoom-alt="Atmospheric watercolour of a rope swing hanging from misty trees over water" aria-label="Open Quite Water full screen">
+          <img src="assets/img/art-03.jpg" width="1600" height="1107" alt="Atmospheric watercolour of a rope swing hanging from misty trees over water">
+        </button>
       </div>
       <div class="modal-copy">
         <p class="eyebrow">Original watercolour</p>
@@ -256,7 +281,9 @@
     <div class="art-modal-shell">
       <button class="modal-close" type="button" data-modal-close aria-label="Close artwork details">×</button>
       <div class="modal-art">
-        <img src="assets/img/art-04.jpg" width="1600" height="1173" alt="Moody watercolour of harbour gantry cranes silhouetted over calm water with small boats">
+        <button class="modal-art-zoom-trigger" type="button" data-zoom-title="Anchored" data-zoom-src="assets/img/art-04.jpg" data-zoom-alt="Moody watercolour of harbour gantry cranes silhouetted over calm water with small boats" aria-label="Open Anchored full screen">
+          <img src="assets/img/art-04.jpg" width="1600" height="1173" alt="Moody watercolour of harbour gantry cranes silhouetted over calm water with small boats">
+        </button>
       </div>
       <div class="modal-copy">
         <p class="eyebrow">Original watercolour</p>
@@ -282,7 +309,9 @@
     <div class="art-modal-shell">
       <button class="modal-close" type="button" data-modal-close aria-label="Close artwork details">×</button>
       <div class="modal-art">
-        <img src="assets/img/art-05.jpg" width="1600" height="747" alt="Panoramic watercolour of snow-capped mountains, a glacier, and warm rocky foreground">
+        <button class="modal-art-zoom-trigger" type="button" data-zoom-title="Last Snow" data-zoom-src="assets/img/art-05.jpg" data-zoom-alt="Panoramic watercolour of snow-capped mountains, a glacier, and warm rocky foreground" aria-label="Open Last Snow full screen">
+          <img src="assets/img/art-05.jpg" width="1600" height="747" alt="Panoramic watercolour of snow-capped mountains, a glacier, and warm rocky foreground">
+        </button>
       </div>
       <div class="modal-copy">
         <p class="eyebrow">Original watercolour</p>
@@ -308,7 +337,9 @@
     <div class="art-modal-shell">
       <button class="modal-close" type="button" data-modal-close aria-label="Close artwork details">×</button>
       <div class="modal-art">
-        <img src="assets/img/art-06.jpg" width="1200" height="1600" alt="Watercolour of a child on a rope swing beneath a large tree in warm earth tones">
+        <button class="modal-art-zoom-trigger" type="button" data-zoom-title="Between the Branches" data-zoom-src="assets/img/art-06.jpg" data-zoom-alt="Watercolour of a child on a rope swing beneath a large tree in warm earth tones" aria-label="Open Between the Branches full screen">
+          <img src="assets/img/art-06.jpg" width="1200" height="1600" alt="Watercolour of a child on a rope swing beneath a large tree in warm earth tones">
+        </button>
       </div>
       <div class="modal-copy">
         <p class="eyebrow">Original watercolour</p>
@@ -334,7 +365,9 @@
     <div class="art-modal-shell">
       <button class="modal-close" type="button" data-modal-close aria-label="Close artwork details">×</button>
       <div class="modal-art">
-        <img src="assets/img/art-07.jpg" width="1068" height="1600" alt="Atmospheric vertical watercolour of a small boat moored below misty harbour buildings and birds">
+        <button class="modal-art-zoom-trigger" type="button" data-zoom-title="Calm Before Depature" data-zoom-src="assets/img/art-07.jpg" data-zoom-alt="Atmospheric vertical watercolour of a small boat moored below misty harbour buildings and birds" aria-label="Open Calm Before Depature full screen">
+          <img src="assets/img/art-07.jpg" width="1068" height="1600" alt="Atmospheric vertical watercolour of a small boat moored below misty harbour buildings and birds">
+        </button>
       </div>
       <div class="modal-copy">
         <p class="eyebrow">Original watercolour</p>
@@ -360,7 +393,9 @@
     <div class="art-modal-shell">
       <button class="modal-close" type="button" data-modal-close aria-label="Close artwork details">×</button>
       <div class="modal-art">
-        <img src="assets/img/art-08.jpg" width="1600" height="515" alt="Panoramic watercolour of ancient stone pyramids and small figures in warm afternoon light">
+        <button class="modal-art-zoom-trigger" type="button" data-zoom-title="Silent Stones" data-zoom-src="assets/img/art-08.jpg" data-zoom-alt="Panoramic watercolour of ancient stone pyramids and small figures in warm afternoon light" aria-label="Open Silent Stones full screen">
+          <img src="assets/img/art-08.jpg" width="1600" height="515" alt="Panoramic watercolour of ancient stone pyramids and small figures in warm afternoon light">
+        </button>
       </div>
       <div class="modal-copy">
         <p class="eyebrow">Original watercolour</p>
@@ -408,6 +443,121 @@
       trigger.closest('dialog')?.close();
     });
   });
+
+  document.querySelectorAll('[data-zoom-src]').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const dialog = document.getElementById('artwork-zoom-dialog');
+      if (dialog && typeof dialog.showModal === 'function') {
+        const title = dialog.querySelector('#artwork-zoom-title');
+        const image = dialog.querySelector('[data-zoom-image]');
+        if (title) title.textContent = trigger.dataset.zoomTitle || 'Artwork detail';
+        if (image) {
+          image.src = trigger.dataset.zoomSrc;
+          image.alt = trigger.dataset.zoomAlt || '';
+        }
+        resetZoom(dialog);
+        dialog.showModal();
+        document.documentElement.classList.add('zoom-lock');
+      }
+    });
+  });
+
+  document.querySelectorAll('.zoom-modal').forEach((dialog) => {
+    const stage = dialog.querySelector('[data-zoom-stage]');
+    const image = dialog.querySelector('[data-zoom-image]');
+    const range = dialog.querySelector('[data-zoom-range]');
+    const state = { scale: 1, x: 0, y: 0, dragging: false, startX: 0, startY: 0, baseX: 0, baseY: 0 };
+
+    dialog._zoomState = state;
+
+    dialog.querySelectorAll('[data-zoom-action]').forEach((control) => {
+      control.addEventListener('click', () => {
+        if (control.dataset.zoomAction === 'in') setZoom(dialog, state.scale + 0.4);
+        if (control.dataset.zoomAction === 'out') setZoom(dialog, state.scale - 0.4);
+        if (control.dataset.zoomAction === 'reset') resetZoom(dialog);
+      });
+    });
+
+    range?.addEventListener('input', () => setZoom(dialog, Number(range.value)));
+
+    stage?.addEventListener('wheel', (event) => {
+      event.preventDefault();
+      setZoom(dialog, state.scale + (event.deltaY < 0 ? 0.2 : -0.2));
+    }, { passive: false });
+
+    stage?.addEventListener('dblclick', () => {
+      state.scale > 1 ? resetZoom(dialog) : setZoom(dialog, 2);
+    });
+
+    stage?.addEventListener('pointerdown', (event) => {
+      if (state.scale <= 1) return;
+      state.dragging = true;
+      state.startX = event.clientX;
+      state.startY = event.clientY;
+      state.baseX = state.x;
+      state.baseY = state.y;
+      stage.classList.add('is-dragging');
+      stage.setPointerCapture(event.pointerId);
+    });
+
+    stage?.addEventListener('pointermove', (event) => {
+      if (!state.dragging) return;
+      state.x = state.baseX + event.clientX - state.startX;
+      state.y = state.baseY + event.clientY - state.startY;
+      applyZoom(dialog);
+    });
+
+    stage?.addEventListener('pointerup', (event) => {
+      state.dragging = false;
+      stage.classList.remove('is-dragging');
+      stage.releasePointerCapture(event.pointerId);
+    });
+
+    dialog.addEventListener('close', () => {
+      resetZoom(dialog);
+      if (!document.querySelector('.zoom-modal[open]')) {
+        document.documentElement.classList.remove('zoom-lock');
+      }
+    });
+    image?.addEventListener('dragstart', (event) => event.preventDefault());
+  });
+
+  document.querySelectorAll('[data-zoom-close]').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      trigger.closest('dialog')?.close();
+    });
+  });
+
+  function setZoom(dialog, scale) {
+    const state = dialog._zoomState;
+    if (!state) return;
+    state.scale = Math.min(4, Math.max(1, scale));
+    if (state.scale === 1) {
+      state.x = 0;
+      state.y = 0;
+    }
+    applyZoom(dialog);
+  }
+
+  function resetZoom(dialog) {
+    const state = dialog._zoomState;
+    if (!state) return;
+    state.scale = 1;
+    state.x = 0;
+    state.y = 0;
+    applyZoom(dialog);
+  }
+
+  function applyZoom(dialog) {
+    const state = dialog._zoomState;
+    const image = dialog.querySelector('[data-zoom-image]');
+    const stage = dialog.querySelector('[data-zoom-stage]');
+    const range = dialog.querySelector('[data-zoom-range]');
+    if (!state || !image) return;
+    image.style.transform = `translate(${state.x}px, ${state.y}px) scale(${state.scale})`;
+    if (range) range.value = state.scale;
+    stage?.classList.toggle('is-zoomed', state.scale > 1);
+  }
 </script>
 
 <footer class="site-footer">
