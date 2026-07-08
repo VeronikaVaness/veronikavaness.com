@@ -17,6 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="assets/css/style.css">
+<!-- Cloudflare Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"245e88d8e76a442f9f0cc86c64ba4520"}'></script><!-- End Cloudflare Web Analytics -->
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -590,6 +591,7 @@
       pinchStartCenterY: 0,
       pinchBaseX: 0,
       pinchBaseY: 0,
+      touchActive: false,
       pointers: new Map()
     };
 
@@ -615,7 +617,12 @@
     });
 
     stage?.addEventListener('pointerdown', (event) => {
-      stage.setPointerCapture(event.pointerId);
+      if (state.touchActive) return;
+      try {
+        stage.setPointerCapture(event.pointerId);
+      } catch {
+        // Some mobile browsers do not allow pointer capture for touch gestures.
+      }
       state.pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
 
       if (state.pointers.size >= 2) {
@@ -636,6 +643,7 @@
     });
 
     stage?.addEventListener('pointermove', (event) => {
+      if (state.touchActive) return;
       if (state.pointers.has(event.pointerId)) {
         state.pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
       }
@@ -656,13 +664,85 @@
       if (state.pointers.size < 2) state.pinching = false;
       state.dragging = false;
       stage.classList.remove('is-dragging', 'is-pinching');
-      if (stage.hasPointerCapture?.(event.pointerId)) {
-        stage.releasePointerCapture(event.pointerId);
+      try {
+        if (stage.hasPointerCapture?.(event.pointerId)) {
+          stage.releasePointerCapture(event.pointerId);
+        }
+      } catch {
+        // Ignore browsers that expose pointer capture inconsistently.
       }
     };
 
     stage?.addEventListener('pointerup', finishPointer);
     stage?.addEventListener('pointercancel', finishPointer);
+
+    stage?.addEventListener('touchstart', (event) => {
+      state.touchActive = true;
+      state.pointers.clear();
+
+      if (event.touches.length >= 2) {
+        event.preventDefault();
+        beginPinch(state, getTouchMetrics(event.touches));
+        state.dragging = false;
+        stage.classList.remove('is-dragging');
+        stage.classList.add('is-pinching');
+        return;
+      }
+
+      if (event.touches.length === 1 && state.scale > 1) {
+        event.preventDefault();
+        const touch = event.touches[0];
+        state.dragging = true;
+        state.startX = touch.clientX;
+        state.startY = touch.clientY;
+        state.baseX = state.x;
+        state.baseY = state.y;
+        stage.classList.add('is-dragging');
+      }
+    }, { passive: false });
+
+    stage?.addEventListener('touchmove', (event) => {
+      if (event.touches.length >= 2) {
+        event.preventDefault();
+        updatePinch(dialog, state, getTouchMetrics(event.touches));
+        return;
+      }
+
+      if (!state.dragging || event.touches.length !== 1) return;
+      event.preventDefault();
+      const touch = event.touches[0];
+      state.x = state.baseX + touch.clientX - state.startX;
+      state.y = state.baseY + touch.clientY - state.startY;
+      applyZoom(dialog);
+    }, { passive: false });
+
+    const finishTouch = (event) => {
+      if (event.touches.length >= 2) {
+        beginPinch(state, getTouchMetrics(event.touches));
+        return;
+      }
+
+      if (event.touches.length === 1 && state.scale > 1) {
+        const touch = event.touches[0];
+        state.pinching = false;
+        state.dragging = true;
+        state.startX = touch.clientX;
+        state.startY = touch.clientY;
+        state.baseX = state.x;
+        state.baseY = state.y;
+        stage.classList.remove('is-pinching');
+        stage.classList.add('is-dragging');
+        return;
+      }
+
+      state.touchActive = false;
+      state.dragging = false;
+      state.pinching = false;
+      stage.classList.remove('is-dragging', 'is-pinching');
+    };
+
+    stage?.addEventListener('touchend', finishTouch);
+    stage?.addEventListener('touchcancel', finishTouch);
 
     dialog.addEventListener('close', () => {
       resetZoom(dialog);
@@ -690,8 +770,7 @@
     applyZoom(dialog);
   }
 
-  function beginPinch(state) {
-    const pinch = getPinchMetrics(state);
+  function beginPinch(state, pinch = getPinchMetrics(state)) {
     if (!pinch) return;
     state.pinching = true;
     state.pinchStartDistance = pinch.distance;
@@ -702,8 +781,7 @@
     state.pinchBaseY = state.y;
   }
 
-  function updatePinch(dialog, state) {
-    const pinch = getPinchMetrics(state);
+  function updatePinch(dialog, state, pinch = getPinchMetrics(state)) {
     if (!pinch || state.pinchStartDistance === 0) return;
     state.scale = clampZoom(state.pinchStartScale * (pinch.distance / state.pinchStartDistance));
     state.x = state.pinchBaseX + pinch.centerX - state.pinchStartCenterX;
@@ -726,6 +804,17 @@
     };
   }
 
+  function getTouchMetrics(touches) {
+    if (touches.length < 2) return null;
+    const first = touches[0];
+    const second = touches[1];
+    return {
+      distance: Math.hypot(second.clientX - first.clientX, second.clientY - first.clientY),
+      centerX: (first.clientX + second.clientX) / 2,
+      centerY: (first.clientY + second.clientY) / 2
+    };
+  }
+
   function clampZoom(scale) {
     return Math.min(4, Math.max(1, scale));
   }
@@ -738,6 +827,7 @@
     state.y = 0;
     state.dragging = false;
     state.pinching = false;
+    state.touchActive = false;
     state.pointers?.clear();
     applyZoom(dialog);
   }
