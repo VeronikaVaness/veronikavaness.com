@@ -144,7 +144,7 @@ figcaption{font-family:var(--sans);font-size:14px;color:var(--charcoal);text-ali
 figcaption .t{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--ink);display:block;margin-bottom:2px;}
 
 /* ---------- gallery grid ---------- */
-.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(20px,3vw,40px);}
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);align-items:start;gap:clamp(20px,3vw,40px);}
 .piece{background:var(--cloud);border:1px solid var(--line);border-radius:10px;padding:clamp(16px,2.4vw,28px);display:flex;flex-direction:column;}
 .piece .imgwrap{display:flex;align-items:center;justify-content:center;min-height:60px;}
 .piece img{border-radius:3px;}
