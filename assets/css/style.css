@@ -146,10 +146,10 @@ figcaption .t{font-family:var(--serif);font-style:italic;font-size:18px;color:va
 /* ---------- gallery grid ---------- */
 .gallery{display:grid;grid-template-columns:repeat(2,1fr);align-items:start;gap:clamp(20px,3vw,40px);}
 .piece{background:var(--cloud);border:1px solid var(--line);border-radius:10px;padding:clamp(16px,2.4vw,28px);display:flex;flex-direction:column;}
-.piece .imgwrap{display:flex;align-items:center;justify-content:center;min-height:60px;}
+.piece .imgwrap{display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:22/16;min-height:60px;}
 .piece img{border-radius:3px;}
 .piece-image-btn{
-  display:block;width:100%;padding:0;margin:0;border:0;background:transparent;
+  display:block;width:var(--art-scale-width,100%);max-width:100%;padding:0;margin:0;border:0;background:transparent;
   cursor:pointer;border-radius:3px;
 }
 .piece-image-btn img{width:100%;transition:opacity .2s ease,transform .2s ease;}
